@@ -1,0 +1,67 @@
+@font-face {
+    font-family: "Quantum";
+    src: url("./font/Quantum.otf");
+}
+
+
+html{
+    
+    background-color: black;
+}
+body{
+    margin: 0;
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+}
+
+header{
+    grid-area: 1/2/2/3;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    background-color: #36454F;
+    color: white;
+    height: 20vh;
+    text-align: center;
+    font-family: "Quantum";
+    font-size: 3rem;
+}
+.sideBarClosed{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    justify-items: center;
+    
+}
+.sideBar{
+    display: grid;
+    align-content: start;
+    background-color: #343434;
+    grid-area: 1/1/3/2;
+    color: #F0FFF0;
+    padding: 0 20px;
+    width: 15vw;
+}
+.crossBtn{
+    justify-self: end;
+    background-color: #343434;
+    outline: none;
+    border: none;
+    color: #F0FFF0;
+    margin-right: -20px;
+}
+.menuBtn{
+    margin-left: 50px;
+}
+.sideBarHeader{
+    text-align: center;
+    font-size: 1.8rem;
+}
+hr{
+    margin-top: -24px;
+    margin-bottom: 24px;
+    width: 100%;
+}
