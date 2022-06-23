@@ -3,22 +3,12 @@ const projectArr = [];
 const projectMaker = (projectName)=>{
     const projectObj= Object.create(projectObjProto);
     projectObj.projectName = projectName;
+    projectObj.dateOfCreation = new Date();
     projectObj.toDos = [];
     projectArr.push(projectObj);
 };
 
-const projectDeletor=(projectName)=>{
-    const arrOut = projectArr.filter((val)=>{
-        if(val.projectName!=projectName){
-            return val;
-        };
-    });
-    projectArr.splice(0);
-    for(let m in arrOut){
-        projectArr.push(arrOut[m])
-    };
 
-}
 
 const toDoMaker=(projectName,title,description,dueDate,priority)=>{
     const toDo = Object.create(toDoObjProto);
@@ -128,7 +118,10 @@ const OutputSystem = (()=>{
     const getProjectsList = ()=>{
         const projectNames = [];
         for(let i in projectArr){
-            projectNames.push(projectArr[i].projectName);
+            const projectObjOutput = {};
+            projectObjOutput.projectName = projectArr[i].projectName;
+            projectObjOutput.dateOfCreation = projectArr[i].dateOfCreation;
+            projectNames.push(projectObjOutput);
         };
         return projectNames;
     }
@@ -138,7 +131,12 @@ const OutputSystem = (()=>{
         for(let i in projectArr){
             if(projectArr[i].projectName === projectName){
                for(let j in projectArr[i].toDos){
-                toDoListOut.push(projectArr[i].toDos[j].title);
+                const toDoObjOut = {};
+                toDoObjOut.title = projectArr[i].toDos[j].title;
+                toDoObjOut.dueDate = projectArr[i].toDos[j].dueDate;
+                toDoObjOut.description = projectArr[i].toDos[j].description;
+                toDoObjOut.priority = projectArr[i].toDos[j].priority;
+                toDoListOut.push(toDoObjOut);
                };
             };
         };
@@ -170,6 +168,128 @@ const OutputSystem = (()=>{
     return {getProjectsList,getToDoList,getCheckList};
 })()
 
+const modificationSystem = (()=>{
+    const projectDeletor=(projectName)=>{
+        const arrOut = projectArr.filter((val)=>{
+            if(val.projectName!=projectName){
+                return val;
+            };
+        });
+        projectArr.splice(0);
+        for(let m in arrOut){
+            projectArr.push(arrOut[m])
+        };
+    };
+
+    const toDoListDeletor = (projectName,toDoListName)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                projectArr[i].deletToDo = toDoListName;
+            }
+        }
+    }
+    
+    const checklistDeletor = (projectName,toDoListName,checklistName)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                for(let j in projectArr[i].toDos){
+                    if(projectArr[i].toDos[j].title === toDoListName){
+                        projectArr[i].toDos[j].deletCheckListItem = checklistName;
+                    }
+                }
+            }
+        }
+    }
+    
+    const projectModifier = (projectName,projectNewName)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName===projectName){
+                projectArr[i].editProjectName=projectNewName;
+            };
+        };
+    }
+
+    const toDoTitleModifier = (projectName,toDoTitle,toDoNewTitle)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                for(let j in projectArr[i].toDos){
+                    if(projectArr[i].toDos[j].title === toDoTitle){
+                        projectArr[i].toDos[j].editTitle = toDoNewTitle;
+                    };
+                };
+            };
+        };
+    };
+    const toDoDescriptionModifier = (projectName,toDoTitle,toDoNewDescription)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                for(let j in projectArr[i].toDos){
+                    if(projectArr[i].toDos[j].title === toDoTitle){
+                        projectArr[i].toDos[j].editDescription = toDoNewDescription;
+                    };
+                };
+            };
+        };
+    };
+
+    const toDoDueDateModifier = (projectName,toDoTitle,toDoNewDueDate)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                for(let j in projectArr[i].toDos){
+                    if(projectArr[i].toDos[j].title === toDoTitle){
+                        projectArr[i].toDos[j].editDueDate = toDoNewDueDate;
+                    };
+                };
+            };
+        };
+    };
+
+    const toDoPriorityModifier = (projectName,toDoTitle,toDoNewPriority)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                for(let j in projectArr[i].toDos){
+                    if(projectArr[i].toDos[j].title === toDoTitle){
+                        projectArr[i].toDos[j].editPriority = toDoNewPriority;
+                    };
+                };
+            };
+        };
+    }; 
+
+    const checklistNameModifier = (projectName,toDoName,checkName,newCheckname)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                for(let j in projectArr[i].toDos){
+                    if(projectArr[i].toDos[j].title === toDoName){
+                        for(let k in projectArr[i].toDos[j].checklist){
+                            if(projectArr[i].toDos[j].checklist[k].checkName===checkName){
+                                projectArr[i].toDos[j].checklist[k].editTitle=newCheckname;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    };
+
+    const checklistIsDoneModifier = (projectName,toDoName,checkName,newState)=>{
+        for(let i in projectArr){
+            if(projectArr[i].projectName === projectName){
+                for(let j in projectArr[i].toDos){
+                    if(projectArr[i].toDos[j].title === toDoName){
+                        for(let k in projectArr[i].toDos[j].checklist){
+                            if(projectArr[i].toDos[j].checklist[k].checkName===checkName){
+                                projectArr[i].toDos[j].checklist[k].isDoneSwitch=newState;
+                            };
+                        };
+                    };
+                };
+            };
+        };
+    };
+
+        return {projectDeletor,toDoListDeletor,checklistDeletor,projectModifier,toDoTitleModifier,toDoDescriptionModifier,toDoDueDateModifier,toDoPriorityModifier,checklistIsDoneModifier,checklistNameModifier};
+})();
 
 //exports
-export {projectMaker,toDoMaker,OutputSystem,projectDeletor,checklistMaker}; 
+export {projectMaker,toDoMaker,OutputSystem,modificationSystem,checklistMaker}; 

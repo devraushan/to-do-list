@@ -5,8 +5,11 @@
 
 
 html{
-    
+    box-sizing: border-box;
     background-color: black;
+}
+html::-webkit-scrollbar{
+    width: 0;
 }
 body{
     margin: 0;
@@ -37,13 +40,22 @@ header{
     
 }
 .sideBar{
+    position: fixed;
+    left: 0;
+    top: 0;
     display: grid;
     align-content: start;
     background-color: #343434;
     grid-area: 1/1/3/2;
     color: #F0FFF0;
     padding: 0 20px;
-    width: 15vw;
+    width: 25vw;
+    overflow-y: scroll;
+    height: 100vh;
+    
+}
+.sideBar::-webkit-scrollbar{
+    width: 0;
 }
 .crossBtn{
     justify-self: end;
@@ -64,4 +76,293 @@ hr{
     margin-top: -24px;
     margin-bottom: 24px;
     width: 100%;
+}
+
+.projectNameContainer>div{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+}
+.projectNameTitleBar{
+    padding: 5px;
+    font-weight: 700;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+}
+.deletBtn{
+    background-color:#343434;
+    outline: none;
+    border: none;
+    color: #F0FFF0;
+}
+
+.detailContainerProject{
+    background-color: #3D0C02;
+    border-radius: 10px;
+    padding: 20px;
+    display: grid;
+    width: 90%;
+    margin: 5px 0;
+    
+}
+.detailContainerProject>p:first-of-type{
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.2rem;
+    font-family: "Quantum";
+    white-space: wrap;
+}
+.detailContainerProject>span{
+    justify-self: center;
+    font-size: 0.8rem;
+    margin-top: -9.9px;
+}
+.detailContainerProject>button{
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+.projectMakerBox{
+    margin-top: 30px;
+    position: sticky;
+    bottom: 8px;
+    justify-self: center;
+    display: grid;
+    background-color: #1A2421;
+    padding: 20px;
+    width: 90%;
+    border-radius: 10px;
+}
+.projectMakerBox>input::placeholder{
+    color: black;
+}
+.projectMakerBox>input{
+    margin: 10px;
+    outline: none;
+    border: 1px solid red;
+    border-radius: 4px;
+    background-color: #f0fff05d;
+}
+.projectMakerBox>button{
+    margin: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #3D0C02;
+    color: silver;
+    padding: 4px 0;
+}
+.mainPageContainer{
+    grid-column-end: 3;
+    grid-row-end: 3;
+    color: #F0FFF0;
+}
+
+.titleBar{
+    background-color: #1A2421;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    position: sticky;
+    top: 0;
+}
+.titleBar>.titleBoxInner{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    grid-area: 1/1/2/4;
+    padding: 0;
+    margin: 10px;
+    font-size: 2rem;
+    margin-top: -19px;
+    margin-bottom: -19px;
+    
+}
+.titleBar>.titleBoxInner>div{
+    margin: 30px;
+}
+.toDoContainer{
+    display: grid;
+    padding: 0 20px;
+    
+}
+.toDoContainer>.toDoTitleBox{
+    display: grid;
+    justify-self: center;
+    text-align: center;
+    grid-template-columns: auto auto auto;
+    align-items: center;
+}
+.toDoContainer>.toDoTitleBox>input{
+    margin: 28px 0;
+    width: 70%;
+    outline: none;
+    border: 1px solid brown;
+    background-color: #3434344b;
+    color: brown;
+    padding: 2px;
+    border-radius: 4px;
+}
+.toDoContainer>.toDoTitleBox>.toDoTitleEdit{
+    cursor: pointer;
+}
+.toDoContainer>.toDoTitleBox>.toDoTitle{
+    justify-self: center;
+    text-align: center;
+    margin-right: 20px;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+.toDoContainer>.toDoDescriptionBox{
+    
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+.toDoContainer>.toDoDescriptionBox>textarea{
+    
+    background-color: transparent;
+    outline: none;
+    border: 1px solid yellow;
+    color: yellow;
+    width: 70%;
+    margin: 24.5px 0;
+    padding: 2px;
+    border-radius: 4px;
+    
+}
+.toDoContainer>.toDoDueDateBox{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+.toDoContainer>.toDoDueDateBox>.toDoDueDateEdit{
+    cursor: pointer;
+}
+.toDoContainer>.toDoChecklistContainer>.toDoChecklistHeaderBox{
+    display: grid;
+    width: 25%;
+    grid-template-columns: auto auto;
+    align-items: center;
+}
+.toDoContainer>.toDoChecklistContainer>.toDoChecklistHeaderBox>.checklistHeader{
+    text-align: center;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+.toDoContainer>.toDoChecklistContainer{
+    display: grid;
+    justify-items: center;
+}
+    
+.toDoContainer>.toDoChecklistContainer>.checklistBar{
+    display: grid;
+    grid-template-columns: auto auto auto 1fr auto;
+    width: 50%;
+}
+.toDoContainer>.toDoChecklistContainer>.checklistBar>input[type="checkbox"]{
+    grid-column-end: 6;
+    justify-self: center;
+    align-self: center;
+}
+.toDoContainer>.toDoChecklistContainer>.checklistBar>button{
+    color: #F0FFF0;
+    background-color: inherit;
+    border: none;
+    height: 100%;
+    align-self: center;
+    cursor: pointer;
+    /* font-size: 0.5rem; */
+}
+.toDoContainer>.toDoChecklistContainer>.checklistBar>button>svg{
+    height: 30%;
+}
+.toDoContainer>.toDoChecklistContainer>.checklistBar>.checklistName{
+    overflow: hidden;
+    height: 50%;
+}
+.toDoContainer>.toDoChecklistContainer>.checklistBar>input[type="text"]{
+    appearance: none;
+    align-self: center;
+    margin: 10.4% 0;
+    outline: none;
+    border: 1px solid green;
+    border-radius: 3px;
+    background-color: transparent;
+    color: green;
+    padding: 2px;
+}
+
+.addChecklistBox{
+    position: fixed;
+    align-self: center;
+    justify-self: center;
+    display: grid;
+    color: #F0FFF0;
+    background-color: #54626F;
+    border-radius: 10px;
+    padding: 50px;
+    opacity: 1;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+.addChecklistBox>button{
+    background-color: #451425;
+    color: #F0FFF0;
+    border: none;
+    border-radius: 4px;
+}
+.addChecklistBox>input{
+    background-color: rgba(255, 255, 255, 0.397);
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    padding: 3px 4px;
+}
+.addChecklistBoxCrossBtn{
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.toDoDueDateBox>fieldset{
+    width: fit-content;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-items: start;
+}
+
+.addNewToDoBox{
+    display: grid;
+    grid-gap: 10px;
+    position: fixed;
+    align-self: center;
+    justify-self: center;
+    background-color: #27251F;
+    color: #F0FFF0;
+    padding: 20px;
+    border-radius: 10px;
+}
+.addNewToDoBox>input{
+    background-color: rgba(255, 255, 255, 0.514);
+    border:none;
+    border-radius: 4px;
+    outline: none;
+}
+.addNewToDoBox>input:focus{
+    border: 1px solid pink;
+}
+.addNewToDoBox>button{
+    background-color: #3D0C02;
+    border: none;
+    color: #F0FFF0;
+    border-radius: 4px;
+}
+.newToDoCrossBtn{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+svg{
+    cursor: pointer;
 }
