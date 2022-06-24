@@ -1,46 +1,3 @@
-const projectArr = [];
-
-const projectMaker = (projectName)=>{
-    const projectObj= Object.create(projectObjProto);
-    projectObj.projectName = projectName;
-    projectObj.dateOfCreation = new Date();
-    projectObj.toDos = [];
-    projectArr.push(projectObj);
-};
-
-
-
-const toDoMaker=(projectName,title,description,dueDate,priority)=>{
-    const toDo = Object.create(toDoObjProto);
-    const checklistArray=[];
-    toDo.title=title;
-    toDo.description=description;
-    toDo.dueDate=dueDate;
-    toDo.priority=priority;
-    toDo.checklist=[];
-    for(let i in projectArr){
-        if(projectArr[i].projectName===projectName){
-            projectArr[i].toDoPush=toDo;
-        };
-    };
-};
-
-const checklistMaker = (projectName,toDoTitle,checkName)=>{
-    const checklist = Object.create(checklistObjProto);
-    checklist.checkName = checkName;
-    checklist.isDone=0;
-    for(let i in projectArr){
-        if(projectArr[i].projectName===projectName){
-            for(let k in projectArr[i].toDos){
-                if(projectArr[i].toDos[k].title===toDoTitle){
-                    projectArr[i].toDos[k].checklist.push(checklist);
-                };
-            };
-        };
-    };
-    
-};
-
 //prototypes
 //#1
 const projectObjProto = {
@@ -110,6 +67,85 @@ const toDoObjProto = {
     }
 
 };
+
+var projectArr = [];
+let newCopy=[];
+let localStorageAvailable;
+newCopy =JSON.parse(localStorage.getItem("localCopy"));
+if(newCopy.length){
+   localStorageAvailable=true;
+    for(let i in newCopy){
+        const localProjectObj = Object.create(projectObjProto);
+        localProjectObj.projectName = newCopy[i].projectName;
+        localProjectObj.dateOfCreation = new Date(newCopy[i].dateOfCreation);
+        localProjectObj.toDos=[];
+        for(let j in newCopy[i].toDos){
+            const localToDoObj = Object.create(toDoObjProto);
+            localToDoObj.title = newCopy[i].toDos[j].title;
+            localToDoObj.description = newCopy[i].toDos[j].description;
+            localToDoObj.dueDate = new Date(newCopy[i].toDos[j].dueDate);
+            localToDoObj.priority = newCopy[i].toDos[j].priority;
+            localToDoObj.checklist = [];
+            for(let k in newCopy[i].toDos[j].checklist){
+                const localChecklistObject = Object.create(checklistObjProto);
+                localChecklistObject.checkName = newCopy[i].toDos[j].checklist[k].checkName;
+                localChecklistObject.isDone = newCopy[i].toDos[j].checklist[k].isDone;
+                localToDoObj.checklist.push(localChecklistObject);
+            }
+            localProjectObj.toDos.push(localToDoObj);
+        };
+        projectArr.push(localProjectObj);
+    };
+};
+// if(typeof(newCopy==="array")){
+//     for(let i in newCopy){
+//         projectArr.push(newCopy[i]);
+//     }
+// }
+// projectArr = newCopy;
+
+
+const projectMaker = (projectName)=>{
+    const projectObj= Object.create(projectObjProto);
+    projectObj.projectName = projectName;
+    projectObj.dateOfCreation = new Date();
+    projectObj.toDos = [];
+    projectArr.push(projectObj);
+};
+
+
+
+const toDoMaker=(projectName,title,description,dueDate,priority)=>{
+    const toDo = Object.create(toDoObjProto);
+    const checklistArray=[];
+    toDo.title=title;
+    toDo.description=description;
+    toDo.dueDate=dueDate;
+    toDo.priority=priority;
+    toDo.checklist=[];
+    for(let i in projectArr){
+        if(projectArr[i].projectName===projectName){
+            projectArr[i].toDoPush=toDo;
+        };
+    };
+};
+
+const checklistMaker = (projectName,toDoTitle,checkName)=>{
+    const checklist = Object.create(checklistObjProto);
+    checklist.checkName = checkName;
+    checklist.isDone=0;
+    for(let i in projectArr){
+        if(projectArr[i].projectName===projectName){
+            for(let k in projectArr[i].toDos){
+                if(projectArr[i].toDos[k].title===toDoTitle){
+                    projectArr[i].toDos[k].checklist.push(checklist);
+                };
+            };
+        };
+    };
+    
+};
+
 
 
 //output system
@@ -291,5 +327,14 @@ const modificationSystem = (()=>{
         return {projectDeletor,toDoListDeletor,checklistDeletor,projectModifier,toDoTitleModifier,toDoDescriptionModifier,toDoDueDateModifier,toDoPriorityModifier,checklistIsDoneModifier,checklistNameModifier};
 })();
 
+//localcopy setup
+function localSave(){
+    localStorage.setItem("localCopy",JSON.stringify(projectArr));
+};
+
+setInterval(() => {
+    localSave();
+}, 1000);
+
 //exports
-export {projectMaker,toDoMaker,OutputSystem,modificationSystem,checklistMaker}; 
+export {projectMaker,toDoMaker,OutputSystem,modificationSystem,checklistMaker,localStorageAvailable}; 

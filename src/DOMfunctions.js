@@ -426,7 +426,7 @@ const deployer = (()=>{
 
             }
 
-            for(let y in checklistArr){
+            for(let y in OutputSystem.getCheckList(projectObject.projectName,OutputSystem.getToDoList(projectObject.projectName)[x].title)){
                 const checklistBar = createElement('div');
                 const checklistName = createElement('h4');
                 const editBtnChecklist = createElement('button');
@@ -437,7 +437,7 @@ const deployer = (()=>{
                 editBtnChecklist.innerHTML=svgStore.editCircle;
                 deletBtnChecklist.innerHTML=svgStore.deletIcon;
 
-                if(checklistArr[y].isDone){
+                if(OutputSystem.getCheckList(projectObject.projectName,OutputSystem.getToDoList(projectObject.projectName)[x].title)[y].isDone){
                     checkBox.checked=true;
                 };
 
@@ -484,7 +484,7 @@ const deployer = (()=>{
                     }
                     else if(!(checkBox.checked)){
                         modificationSystem.checklistIsDoneModifier(projectObject.projectName,OutputSystem.getToDoList(projectObject.projectName)[x].title,OutputSystem.getCheckList(projectObject.projectName,OutputSystem.getToDoList(projectObject.projectName)[x].title)[y].checkName,0);
-
+                        
                     };
                 })
 
@@ -770,5 +770,13 @@ const deployer = (()=>{
 
     return {deployProjectList};
 })();
+
+//description box bug setup
+// const fixDescriptionBox = ()=>{
+//     if(document.querySelector(".toDoDescriptionBox")){
+//         let text = document.querySelector(".toDoDescriptionBox").innerText;
+
+//     }
+// }
 
     export {baseBuildUp,deployer}
