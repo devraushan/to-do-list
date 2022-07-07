@@ -72,7 +72,7 @@ var projectArr = [];
 let newCopy=[];
 let localStorageAvailable;
 newCopy =JSON.parse(localStorage.getItem("localCopy"));
-if(newCopy.length){
+if(newCopy){
    localStorageAvailable=true;
     for(let i in newCopy){
         const localProjectObj = Object.create(projectObjProto);
